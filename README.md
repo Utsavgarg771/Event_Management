@@ -1,188 +1,163 @@
-# 🎉 College Event Management System
+README.md
 
-A comprehensive Java Swing desktop application for managing college events, participant registrations, and event administration.
+# 🎉 **College Event Management System**
+
+### *DBMS Project — Semester 3, IIIT Naya Raipur*
+
+### **Developed By**
+
+* **Utsav Garg**
+* **Vipul Netam**
+* **Eishita Mishra**
+
+**Special thanks to *Abhishek Shrivastava Sir* for his guidance and support throughout this project.**
+
+---
+
+## 📘 Overview
+
+This project is a **Java Swing + MySQL–based Event Management System** developed as part of the **DBMS course** at **IIIT Naya Raipur (Semester 3)**.
+
+It provides an intuitive interface for:
+
+* Managing college events
+* Handling student registrations
+* Performing admin-level operations
+
+It showcases practical DBMS concepts including:
+
+* Relational schema design
+* CRUD operations using JDBC
+* GUI development with Java Swing
+* Integration between UI, service, and database layers
+
+---
 
 ## ✨ Features
 
-- **User Authentication**
-  - Separate login for administrators and participants
-  - Secure password handling
+### 🔐 **User Authentication**
 
-- **Event Management**
-  - Create, view, update, and delete events
-  - Track event details (name, description, date, location, capacity)
-  - View event registrations
+* Separate login for **Admin** and **Students**
 
-- **Participant Registration**
-  - Easy event registration for students
-  - View registered events
-  - Participant information management
+### 🛠 **Event Management (Admin)**
 
-- **Admin Dashboard**
-  - Manage all events
-  - View and manage participant registrations
-  - Generate reports
+* Create, update, delete events
+* View events and participant lists
 
-## 🛠️ Technologies Used
+### 🎓 **Student Module**
 
-- **Frontend**: Java Swing, AWT
-- **Backend**: Java 11
-- **Database**: MySQL
-- **Build Tool**: Maven
-- **Dependency Management**: Maven
-- **JDBC**: MySQL Connector/J
+* Register for events
+* Update personal details
+* View registered events
 
-## 📋 Prerequisites
+### 📊 **Admin Dashboard**
 
-- Java Development Kit (JDK) 11 or later
-- MySQL Server 8.0 or later
-- Maven 3.6.0 or later
-- Git (optional, for version control)
+* Overview of all events
+* Real-time participant data
+
+---
+
+## 🛠 Technologies Used
+
+* **Java Swing / AWT**
+* **MySQL**
+* **JDBC**
+* **Maven**
+
+---
 
 ## 🚀 Getting Started
 
-### 1. Clone the Repository
+### **1️⃣ Clone the Repository**
+
 ```bash
-git clone https://github.com/Sheldon1999/Event_Management.git
+git clone https://github.com/Utsavgarg771/Event_Management.git
 cd Event_Management
 ```
 
-### 2. Database Setup
-1. Ensure MySQL server is running
-2. Create a new MySQL user (or use existing one):
-   ```sql
-   CREATE USER 'superadmin'@'localhost' IDENTIFIED BY 'Super@1999';
-   GRANT ALL PRIVILEGES ON *.* TO 'superadmin'@'localhost' WITH GRANT OPTION;
-   FLUSH PRIVILEGES;
-   ```
-3. Update database configuration in `src/main/resources/config.properties`
+### **2️⃣ Database Setup**
 
-### 3. Build the Project
+```sql
+CREATE DATABASE event_management;
+
+CREATE USER 'superadmin'@'localhost' IDENTIFIED BY 'Super@1999';
+GRANT ALL PRIVILEGES ON event_management.* TO 'superadmin'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+Create tables:
+
+* `events`
+* `participants`
+
+### **3️⃣ Configure Database Connection**
+
+Edit:
+
+```
+src/main/resources/config.properties
+```
+
+Set:
+
+```
+db.url=jdbc:mysql://localhost:3306/event_management
+db.username=superadmin
+db.password=Super@1999
+```
+
+### **4️⃣ Build & Run**
+
 ```bash
 mvn clean install
+java -jar target/event-management-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
-### 4. Run the Application
-```bash
-java -jar target/EventManagement-1.0-SNAPSHOT.jar
-```
+---
 
 ## 📂 Project Structure
 
 ```
 src/main/java/com/eventmanagement/
-├── config/          # Application configuration
-├── controllers/      # Application controllers
-├── exceptions/       # Custom exceptions
-├── models/           # Data models (Participant, Event, User)
-├── repositories/     # Data access layer
-│   └── impl/        # JDBC implementations
-├── services/         # Business logic
-└── ui/               # Swing UI components
+  ├── models/
+  ├── controllers/
+  ├── services/
+  ├── repositories/
+  └── ui/
 ```
 
-## 🔧 Configuration
-
-Configure the application by editing `src/main/resources/config.properties`:
-
-```properties
-# Database Configuration
-db.url=jdbc:mysql://localhost:3306/event_management?useSSL=false&serverTimezone=UTC
-db.username=superadmin
-db.password=Super@1999
-
-# Application Settings
-app.name=College Event Management
-app.version=1.0.0
-```
-
-## 📝 Usage
-
-1. **Home Screen**
-   - Choose between Admin Login or Student Registration
-
-2. **Admin Login**
-   - Username: admin
-   - Password: admin123 (change in production)
-   - Manage events and view registrations
-
-3. **Student Registration**
-   - Register for available events
-   - View registered events
-   - Update personal information
-
-## 📊 Database Schema
-
-### Participants Table
-```sql
-CREATE TABLE IF NOT EXISTS participants (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    phone VARCHAR(20) NOT NULL,
-    department VARCHAR(50) NOT NULL,
-    semester INT NOT NULL,
-    event_id BIGINT NOT NULL,
-    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
-);
-```
-
-### Events Table
-```sql
-CREATE TABLE IF NOT EXISTS events (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    description TEXT,
-    start_date_time DATETIME NOT NULL,
-    end_date_time DATETIME NOT NULL,
-    location VARCHAR(100) NOT NULL,
-    max_participants INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-```
+---
 
 ## 📸 Screenshots
 
-### Home Page
-![Home Page](screenshots/version-1.0.0/home.png)
-*Figure 1: Application Home Page*
+### 🏠 Home Page
 
-### Admin Login
+![Home](screenshots/version-1.0.0/home.png)
+
+### 🔐 Admin Login
+
 ![Admin Login](screenshots/version-1.0.0/admin_login.png)
-*Figure 2: Admin Login Page*
 
-### Student Registration
+### 📝 Student Registration
+
 ![Student Registration](screenshots/version-1.0.0/student_registration.png)
-*Figure 3: Student Registration Form*
 
-### Registration Confirmation
-![Registration Confirmation](screenshots/version-1.0.0/confirm.png)
-*Figure 4: Registration Confirmation Dialog*
+### ✔ Registration Confirmation
 
-### Success Message
-![Success Message](screenshots/version-1.0.0/success.png)
-*Figure 5: Operation Success Notification*
+![Confirmation](screenshots/version-1.0.0/confirm.png)
 
-## 🤝 Contributing
+### 🎉 Success Message
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+![Success](screenshots/version-1.0.0/success.png)
 
-## 📄 License
+---
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🙏 Acknowledgment
 
-## 📧 Contact
-
-For any queries, please contact ankur999gangwar@gmail.com or open an issue in the repository.
+This project was completed under the guidance of **Abhishek Shrivastava Sir**, whose insights greatly enhanced our understanding of DBMS concepts.
 
 ---
 
 <div align="center">
-  Made with ❤️ using Java Swing
+  <b>Made with ❤️ by IIITNR Students</b>
 </div>
